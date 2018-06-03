@@ -1,0 +1,6 @@
+framework module Pods_TwerkApp {
+  umbrella header "Pods-TwerkApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
