@@ -347,9 +347,13 @@ class GameViewController: UIViewController {
         let MAX_Y_ROT_SHIFT = CGFloat(M_PI/6);
         let MAX_Y_TRANS_SHIFT = CGFloat(100.0)
         
-        if(curDelta.y < -1*MAX_DELTA_Y) {
-            curDelta.y = MAX_DELTA_Y
+        if(curDelta.y < -50.0) {
+            curDelta.y = -50.0
         }
+        if(curDelta.y < 50.0) {
+            curDelta.y = 50.0
+        }
+        
         if (curDelta.x < -1*MAX_DELTA_X) {
             curDelta.x = -1*MAX_DELTA_X
         }
