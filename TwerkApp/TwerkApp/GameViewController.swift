@@ -26,6 +26,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var AssView: UIView!
     @IBOutlet weak var AssRight: UIImageView!
     @IBOutlet weak var AssLeft: UIImageView!
+    
+    @IBOutlet weak var FootRight: UIImageView!
+    @IBOutlet weak var FootLeft: UIImageView!
     @IBOutlet weak var CoinsLabel: UILabel!
     @IBOutlet weak var ScoreLabel: UILabel!
     @IBOutlet weak var BestScoreLabel: UILabel!
@@ -133,7 +136,7 @@ class GameViewController: UIViewController {
             }}, completion: { (finished: Bool) in
                 //проверяем не проебал ли игрок из-за того что не успел
                 guard let curFirst = self.ArrowsView.first else {
-                    NSLog ("FKDBG problem in AniamteArrows")
+                    NSLog ("FKDBG problem in AnimateArrows")
                     return
                 }
                 if (curFirst.center.x + curFirst.frame.width/2 < self.RoundImage.center.x - self.RoundImage.frame.width/2) {
@@ -230,7 +233,10 @@ class GameViewController: UIViewController {
         let newY = DefaultAssPosition.y - (startRecognizingPosition.y - location.y)*MULTIPLICATOR
         
         AssView.center = CGPoint(x: newX, y: newY)
-        
+        var cDelta = CGPoint(x: (startRecognizingPosition.x - location.x)*MULTIPLICATOR,
+                            y: (startRecognizingPosition.y - location.y)*MULTIPLICATOR)
+        UpdateAssViewPosition(delta: cDelta)
+        NSLog("FKDBG cDelta \(cDelta))")
         /* if let view = recognizer.view {
             let newX = DefaultAssPosition.x - (DefaultAssPosition.x - location.x)*MULTIPLICATOR
             let newY = DefaultAssPosition.y - (DefaultAssPosition.y - location.y)*MULTIPLICATOR
@@ -239,8 +245,10 @@ class GameViewController: UIViewController {
         }
         recognizer.setTranslation(CGPoint.zero, in: self.view)*/
         
+        
         if(recognizer.state == .ended) {
             ifRecognizing = false
+            UpdateAssViewPosition(delta: CGPoint.zero)
             let endingPosition = getDirectionFromTouchPosition(startPoint: startRecognizingPosition, endPoint: location)
             PlayerMadeHisTurn(dir: endingPosition)
         }
@@ -322,6 +330,58 @@ class GameViewController: UIViewController {
         } else {
             return true
         }
+    }
+    
+    func UpdateAssViewPosition (delta: CGPoint) {
+        var curDelta = delta
+        var transformForLeftAss = CGAffineTransform.identity
+        var transformForLeftHip = CGAffineTransform.identity
+        var transformForRightAss = CGAffineTransform.identity
+        var transformForRightHip = CGAffineTransform.identity
+        var transformForLeftLeg = CGAffineTransform.identity
+        var transformForRightLeg = CGAffineTransform.identity
+        
+        let MAX_X_TRANS_SHIFT = CGFloat(40.0)
+        let MAX_DELTA_Y = CGFloat(150.0)
+        let MAX_DELTA_X = CGFloat(50.0)
+        let MAX_Y_ROT_SHIFT = CGFloat(M_PI/6);
+        let MAX_Y_TRANS_SHIFT = CGFloat(100.0)
+        
+        if(curDelta.y < -1*MAX_DELTA_Y) {
+            curDelta.y = MAX_DELTA_Y
+        }
+        if (curDelta.x < -1*MAX_DELTA_X) {
+            curDelta.x = -1*MAX_DELTA_X
+        }
+        if (curDelta.x > MAX_DELTA_X) {
+            curDelta.x = MAX_DELTA_X
+        }
+        
+        
+        transformForRightHip = transformForRightHip.rotated(by: MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        transformForLeftHip = transformForLeftHip.rotated(by: MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        
+        transformForLeftHip = transformForLeftHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        transformForRightHip = transformForRightHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        
+        var scale = 1 + curDelta.x/MAX_DELTA_X/3
+        
+        transformForLeftHip = transformForLeftHip.scaledBy(x: scale, y: 1)
+        transformForRightHip = transformForRightHip.scaledBy(x: scale, y: 1)
+        
+        
+        HipLeft.transform = transformForLeftHip
+        HipRight.transform = transformForRightHip
+        
+        transformForRightLeg = transformForRightLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        transformForLeftLeg = transformForLeftLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        
+        transformForLeftLeg = transformForLeftLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        transformForRightLeg = transformForRightLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        
+        FootLeft.transform = transformForLeftLeg
+        FootRight.transform = transformForRightLeg
+        
     }
     
     func Twerk (){

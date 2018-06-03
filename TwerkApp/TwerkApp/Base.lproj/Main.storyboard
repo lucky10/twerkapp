@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -215,8 +215,10 @@
                         <outlet property="BestScoreLabel" destination="gec-Pf-r2w" id="OCr-z8-rLs"/>
                         <outlet property="CoinsLabel" destination="JV1-4m-tQS" id="4A9-ou-LlF"/>
                         <outlet property="CursorButton" destination="nY3-vw-Nck" id="21Y-V6-TtI"/>
-                        <outlet property="HipLeft" destination="aTK-SR-ggF" id="w29-6f-eOc"/>
-                        <outlet property="HipRight" destination="6yS-a8-NMt" id="kec-0a-vH7"/>
+                        <outlet property="FootLeft" destination="YW8-TB-amw" id="q2A-U6-Nw8"/>
+                        <outlet property="FootRight" destination="8X6-wg-Eto" id="1IE-rd-ZOv"/>
+                        <outlet property="HipLeft" destination="aTK-SR-ggF" id="6Cn-vo-vet"/>
+                        <outlet property="HipRight" destination="6yS-a8-NMt" id="jIy-yi-iQL"/>
                         <outlet property="NoAdsButton" destination="YmH-Sv-Z1j" id="oPK-wq-uWb"/>
                         <outlet property="PanGestureRecognizerOnAss" destination="GNz-pX-gKB" id="Rdi-xY-nJY"/>
                         <outlet property="RoundGreenImage" destination="7Xs-Ml-Iym" id="RJG-cz-6ou"/>
@@ -723,9 +725,9 @@
         <image name="vibration-up" width="175" height="174"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nst-Xc-9ag"/>
-        <segue reference="3L6-8P-tkZ"/>
-        <segue reference="vlz-JW-4TQ"/>
+        <segue reference="HPe-1Y-ZZi"/>
+        <segue reference="enE-GB-uqo"/>
+        <segue reference="qP0-RB-ss6"/>
         <segue reference="3dH-EB-Qii"/>
     </inferredMetricsTieBreakers>
 </document>
