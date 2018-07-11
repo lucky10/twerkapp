@@ -350,7 +350,7 @@ class GameViewController: UIViewController {
         if(curDelta.y < -50.0) {
             curDelta.y = -50.0
         }
-        if(curDelta.y < 50.0) {
+        if(curDelta.y > 50.0) {
             curDelta.y = 50.0
         }
         
