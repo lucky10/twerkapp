@@ -46,6 +46,13 @@ class GameViewController: UIViewController {
     @IBOutlet weak var HipRight: UIImageView!
     @IBOutlet weak var HipLeft: UIImageView!
     
+    fileprivate func prepareForGame() {
+        AddArrows()
+        UpdateArrowViews()
+        UpdateLabels()
+        UpdateSpeedOfTheGame()
+    }
+    
     override func viewDidLoad() {
         if Game == nil {
             //если мы впервые попали
@@ -53,7 +60,7 @@ class GameViewController: UIViewController {
             Game!.PrepareForGame()
         }
         
-        if var game = Game {
+        if let game = Game {
             if game.ifShowReplay {
                 game.RandomiseAll()
             }
@@ -68,16 +75,14 @@ class GameViewController: UIViewController {
         
         
         
-        AddArrows()
-        UpdateArrowViews()
-        UpdateLabels()
-        UpdateSpeedOfTheGame()
+        prepareForGame()
         
         animatorForAss = UIDynamicAnimator(referenceView: self.view)
         
         super.viewDidLoad()
     }
     
+    // hide status bar
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -365,8 +370,10 @@ class GameViewController: UIViewController {
         transformForRightHip = transformForRightHip.rotated(by: MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
         transformForLeftHip = transformForLeftHip.rotated(by: MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
         
-        transformForLeftHip = transformForLeftHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
-        transformForRightHip = transformForRightHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
+        transformForLeftHip = transformForLeftHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3 - curDelta.y * 0.13, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y / 2))
+        // y:
+        transformForRightHip = transformForRightHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3 - curDelta.y * 0.13, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y / 2))
+        // y:
         
         var scale = 1 + curDelta.x/MAX_DELTA_X/3
         
@@ -377,18 +384,18 @@ class GameViewController: UIViewController {
         HipLeft.transform = transformForLeftHip
         HipRight.transform = transformForRightHip
         
-        transformForRightLeg = transformForRightLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
-        transformForLeftLeg = transformForLeftLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
-        
-        transformForLeftLeg = transformForLeftLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
-        transformForRightLeg = transformForRightLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
-        
-        FootLeft.transform = transformForLeftLeg
-        FootRight.transform = transformForRightLeg
+//        transformForRightLeg = transformForRightLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
+//        transformForLeftLeg = transformForLeftLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
+//
+//        transformForLeftLeg = transformForLeftLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
+//        transformForRightLeg = transformForRightLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
+//
+//        FootLeft.transform = transformForLeftLeg
+//        FootRight.transform = transformForRightLeg
         
     }
     
-    func Twerk (){
+    func TwerkAnimation (){
         //анимация
         if (snapForAss != nil){
             animatorForAss.removeBehavior(snapForAss)
@@ -471,7 +478,7 @@ class GameViewController: UIViewController {
             MakeFirstArrowViewLast()
             UpdateAllVisibleInfo()
             
-            Twerk()
+            TwerkAnimation()
         } else {
             NSLog ("FKDBG Troubles with PlayerMadeHisTurn")
         }
@@ -533,4 +540,3 @@ class GameViewController: UIViewController {
         }
     }
 }
-

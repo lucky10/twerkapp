@@ -30,6 +30,7 @@ enum State {
 class Arrow {
     var Direct: Direction
     var State: State
+    
     init() {
         Direct = .ToUp
         State = .Default
