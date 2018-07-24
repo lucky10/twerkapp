@@ -14,6 +14,14 @@ let NUM_OF_ARROWS = 5
 
 let defaults = UserDefaults.standard
 
+let SKIN_NICKI_NUM = 1
+let SKIN_IGGI_NUM = 2
+let SKIN_KIM_NUM = 3
+let SKIN_BEYONCE_NUM = 4
+let SKIN_MIA_NUM = 5
+let SKIN_TRUMP_NUM = 6
+
+
 enum Direction {
     case ToLeft
     case ToRight
@@ -97,6 +105,7 @@ class TwerkGame {
     var ifVibration: Bool
     var ifSound: Bool
     var ifShowAds: Bool
+    var personNum: Int
     
     init () {
         ifGame = false
@@ -108,6 +117,12 @@ class TwerkGame {
         ifVibration = defaults.bool(forKey: "ifVibration")
         ifSound = defaults.bool(forKey: "ifSound")
         ifShowAds = defaults.bool(forKey: "ifShowAds")
+        personNum = defaults.integer(forKey: "personNum")
+        if (personNum == 0) {
+            defaults.set(1, forKey: "personNum")
+            personNum = 1
+        }
+        personNum = 4
     }
     
     func PrepareForGame () {

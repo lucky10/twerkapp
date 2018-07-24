@@ -26,7 +26,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var AssView: UIView!
     @IBOutlet weak var AssRight: UIImageView!
     @IBOutlet weak var AssLeft: UIImageView!
-    
+    @IBOutlet weak var Body: UIImageView!
+    @IBOutlet weak var Back: UIImageView!
     @IBOutlet weak var FootRight: UIImageView!
     @IBOutlet weak var FootLeft: UIImageView!
     @IBOutlet weak var CoinsLabel: UILabel!
@@ -51,6 +52,20 @@ class GameViewController: UIViewController {
         UpdateArrowViews()
         UpdateLabels()
         UpdateSpeedOfTheGame()
+        // UpdateSkins()
+    }
+    
+    func UpdateSkins() {
+        if let game = Game {
+            if (game.personNum != SKIN_KIM_NUM){
+                AssRight.image = UIImage(named: "AssRight-"+String(game.personNum))
+                AssLeft.image = UIImage(named: "AssLeft-"+String(game.personNum))
+                HipLeft.image = UIImage(named: "HipLeft-"+String(game.personNum))
+                HipRight.image = UIImage(named: "HipRight-"+String(game.personNum))
+                Body.image = UIImage(named: "Body-"+String(game.personNum))
+                Back.image = UIImage(named: "Back-"+String(game.personNum))
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -72,8 +87,6 @@ class GameViewController: UIViewController {
         RoundGreenImage.alpha = 0.0
         RoundRedImage.alpha = 0.0
         ScoreLabel.alpha = 0.0
-        
-        
         
         prepareForGame()
         
