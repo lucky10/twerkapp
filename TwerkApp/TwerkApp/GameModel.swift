@@ -197,4 +197,9 @@ class TwerkGame {
         ifVibration = !ifVibration
         defaults.set(ifVibration, forKey: "ifVibration")
     }
+    
+    func changeSkinSettings (toValue v: Int) {
+        personNum = v
+        defaults.set(v, forKey: "personNum")
+    }
 }

@@ -10,6 +10,7 @@
 		04460C612055A00100BB7B63 /* ReplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C602055A00100BB7B63 /* ReplayViewController.swift */; };
 		04460C632055A79800BB7B63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C622055A79800BB7B63 /* SettingsView.swift */; };
 		04460C652055AA4800BB7B63 /* GameEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C642055AA4800BB7B63 /* GameEndViewController.swift */; };
+		0491C57F2107B51E00F7E468 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0491C57E2107B51E00F7E468 /* ShopViewController.swift */; };
 		04C1B1F9202F3B11003C238B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B1F8202F3B0E003C238B /* GameViewController.swift */; };
 		04F9A2B52018473100E20683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9A2B42018473100E20683 /* AppDelegate.swift */; };
 		04F9A2BA2018473100E20683 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F9A2B82018473100E20683 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		04460C602055A00100BB7B63 /* ReplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayViewController.swift; sourceTree = "<group>"; };
 		04460C622055A79800BB7B63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		04460C642055AA4800BB7B63 /* GameEndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndViewController.swift; sourceTree = "<group>"; };
+		0491C57E2107B51E00F7E468 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		04C1B1F8202F3B0E003C238B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		04F9A2B12018473100E20683 /* TwerkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwerkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F9A2B42018473100E20683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 			children = (
 				04F9A2B42018473100E20683 /* AppDelegate.swift */,
 				04460C622055A79800BB7B63 /* SettingsView.swift */,
+				0491C57E2107B51E00F7E468 /* ShopViewController.swift */,
 				04F9A2E5201C40BE00E20683 /* GameModel.swift */,
 				04C1B1F8202F3B0E003C238B /* GameViewController.swift */,
 				04460C642055AA4800BB7B63 /* GameEndViewController.swift */,
@@ -232,6 +235,7 @@
 				04460C632055A79800BB7B63 /* SettingsView.swift in Sources */,
 				04460C612055A00100BB7B63 /* ReplayViewController.swift in Sources */,
 				04C1B1F9202F3B11003C238B /* GameViewController.swift in Sources */,
+				0491C57F2107B51E00F7E468 /* ShopViewController.swift in Sources */,
 				04F9A2B52018473100E20683 /* AppDelegate.swift in Sources */,
 				04F9A2E6201C40BE00E20683 /* GameModel.swift in Sources */,
 			);

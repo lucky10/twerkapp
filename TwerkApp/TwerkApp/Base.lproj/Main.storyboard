@@ -32,10 +32,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackGround" translatesAutoresizingMaskIntoConstraints="NO" id="Lj7-oE-eb8">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1.Nicki" translatesAutoresizingMaskIntoConstraints="NO" id="Rk0-4p-DkC">
-                                <rect key="frame" x="70" y="117" width="234" height="432"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2D-kI-Axz">
                                 <rect key="frame" x="28" y="225" width="63" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -174,7 +170,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="test btn"/>
                             </button>
-                            <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ong-b5-MeK">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ong-b5-MeK">
                                 <rect key="frame" x="16" y="54" width="343" height="540"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
@@ -202,7 +198,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="shop"/>
                                 <connections>
-                                    <segue destination="uDX-xn-4Qh" kind="presentation" animates="NO" id="HPe-1Y-ZZi"/>
+                                    <segue destination="uDX-xn-4Qh" kind="presentation" identifier="fromGameToShop" animates="NO" id="HPe-1Y-ZZi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -643,15 +639,15 @@
             </objects>
             <point key="canvasLocation" x="1565.5999999999999" y="1110.4947526236883"/>
         </scene>
-        <!--View Controller-->
+        <!--Shop View Controller-->
         <scene sceneID="b2j-Db-kXe">
             <objects>
-                <viewController id="uDX-xn-4Qh" sceneMemberID="viewController">
+                <viewController id="uDX-xn-4Qh" customClass="ShopViewController" customModule="TwerkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HUV-tA-2uV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plan-6" translatesAutoresizingMaskIntoConstraints="NO" id="0vO-LW-6G5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackGround" translatesAutoresizingMaskIntoConstraints="NO" id="0vO-LW-6G5">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W0H-L1-6zp">
@@ -660,6 +656,73 @@
                                 <state key="normal" image="back"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="presentation" animates="NO" id="s0j-GX-FJZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGX-4w-CM7">
+                                <rect key="frame" x="156" y="180" width="64" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="NICKI">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="NickiTouched:" destination="uDX-xn-4Qh" eventType="touchUpInside" id="K9G-YD-5x9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MLs-zg-cBf">
+                                <rect key="frame" x="163" y="230" width="48" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="IGGI">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="IggiTouched:" destination="uDX-xn-4Qh" eventType="touchUpInside" id="jds-zv-dJ0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kR-Ij-bGE">
+                                <rect key="frame" x="131" y="338" width="113" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="BEYONCE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="BeyonceTouched:" destination="uDX-xn-4Qh" eventType="touchUpInside" id="GL6-eU-CRq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAo-JW-zFG">
+                                <rect key="frame" x="165" y="396" width="44" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="MIA">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="MiaTouched:" destination="uDX-xn-4Qh" eventType="touchUpInside" id="T1i-79-ABa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kny-D3-KNN">
+                                <rect key="frame" x="145" y="446" width="84" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="TRUMP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="TrumpTouched:" destination="uDX-xn-4Qh" eventType="touchUpInside" id="yHH-hk-Pch"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALb-Dt-pxR">
+                                <rect key="frame" x="166" y="280" width="43" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="KIM">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="IggiTouched:" destination="uDX-xn-4Qh" eventType="touchUpInside" id="z5J-E2-I33"/>
+                                    <action selector="KimTouched:" destination="uDX-xn-4Qh" eventType="touchUpInside" id="U8m-St-6Yf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -672,10 +735,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9DW-uy-hJ1"/>
                     </view>
+                    <connections>
+                        <outlet property="BeyonceBtn" destination="5kR-Ij-bGE" id="PnP-RX-IUg"/>
+                        <outlet property="IggiBtn" destination="MLs-zg-cBf" id="PqU-5U-546"/>
+                        <outlet property="KimBtn" destination="ALb-Dt-pxR" id="wUR-wR-doQ"/>
+                        <outlet property="MiaBtn" destination="dAo-JW-zFG" id="346-Of-ogN"/>
+                        <outlet property="NickiBtn" destination="AGX-4w-CM7" id="P4e-Dc-cZJ"/>
+                        <outlet property="TrumpBtn" destination="kny-D3-KNN" id="UTv-Hb-GDs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YTc-HV-isQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2670" y="1110"/>
+            <point key="canvasLocation" x="2669.5999999999999" y="1109.5952023988007"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="I7L-tn-XbT">
@@ -700,7 +771,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1.Nicki" width="433" height="825"/>
         <image name="AssLeft-1" width="87" height="98"/>
         <image name="AssRight-1" width="91" height="93"/>
         <image name="BODY" width="431" height="809"/>
@@ -724,7 +794,6 @@
         <image name="cursor" width="130" height="183"/>
         <image name="no ads" width="77" height="76"/>
         <image name="no thanks" width="189" height="23"/>
-        <image name="plan-6" width="750" height="1334"/>
         <image name="plan-7" width="750" height="1334"/>
         <image name="round" width="142" height="142"/>
         <image name="round-green" width="140" height="140"/>
@@ -740,6 +809,6 @@
         <segue reference="HPe-1Y-ZZi"/>
         <segue reference="enE-GB-uqo"/>
         <segue reference="qP0-RB-ss6"/>
-        <segue reference="3dH-EB-Qii"/>
+        <segue reference="s0j-GX-FJZ"/>
     </inferredMetricsTieBreakers>
 </document>

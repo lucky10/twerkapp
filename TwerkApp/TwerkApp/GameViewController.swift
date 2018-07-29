@@ -52,12 +52,14 @@ class GameViewController: UIViewController {
         UpdateArrowViews()
         UpdateLabels()
         UpdateSpeedOfTheGame()
-        // UpdateSkins()
+        UpdateSkins()
     }
     
     func UpdateSkins() {
         if let game = Game {
             if (game.personNum != SKIN_KIM_NUM){
+                FootLeft.image = UIImage(named: "FootLeft-"+String(game.personNum))
+                FootRight.image = UIImage(named: "FootRight-"+String(game.personNum))
                 AssRight.image = UIImage(named: "AssRight-"+String(game.personNum))
                 AssLeft.image = UIImage(named: "AssLeft-"+String(game.personNum))
                 HipLeft.image = UIImage(named: "HipLeft-"+String(game.personNum))
@@ -449,7 +451,7 @@ class GameViewController: UIViewController {
                 cur.center.x -= self.view.frame.width*1.2
             }
         }, completion: { finished in
-            //в этот момент начинается сама игра .
+            //в этот момент начинается сама игра 
             self.AnimateArrows()
         })
 
@@ -526,6 +528,10 @@ class GameViewController: UIViewController {
                 return
             }
             if let vc = segue.destination as? SettingsView {
+                vc.Game = Game
+                return
+            }
+            if let vc = segue.destination as? ShopViewController {
                 vc.Game = Game
                 return
             }
