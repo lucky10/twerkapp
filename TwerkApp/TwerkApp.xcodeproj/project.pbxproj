@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0419F396219462A10091449C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F395219462A10091449C /* Helpers.swift */; };
+		0419F398219467D80091449C /* SelectorsForConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F397219467D80091449C /* SelectorsForConstants.swift */; };
 		04460C612055A00100BB7B63 /* ReplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C602055A00100BB7B63 /* ReplayViewController.swift */; };
 		04460C632055A79800BB7B63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C622055A79800BB7B63 /* SettingsView.swift */; };
 		04460C652055AA4800BB7B63 /* GameEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C642055AA4800BB7B63 /* GameEndViewController.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		0419F395219462A10091449C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		0419F397219467D80091449C /* SelectorsForConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorsForConstants.swift; sourceTree = "<group>"; };
 		0440E007204021EB00D6E9EA /* Gotham Cyrillic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Gotham Cyrillic"; path = "../APP/Gotham Cyrillic"; sourceTree = "<group>"; };
 		04460C602055A00100BB7B63 /* ReplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayViewController.swift; sourceTree = "<group>"; };
 		04460C622055A79800BB7B63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				04F9A2E5201C40BE00E20683 /* GameModel.swift */,
 				04C1B1F8202F3B0E003C238B /* GameViewController.swift */,
 				0419F395219462A10091449C /* Helpers.swift */,
+				0419F397219467D80091449C /* SelectorsForConstants.swift */,
 				04460C642055AA4800BB7B63 /* GameEndViewController.swift */,
 				04460C602055A00100BB7B63 /* ReplayViewController.swift */,
 				04F9A2B82018473100E20683 /* Main.storyboard */,
@@ -237,6 +240,7 @@
 				04460C652055AA4800BB7B63 /* GameEndViewController.swift in Sources */,
 				04460C632055A79800BB7B63 /* SettingsView.swift in Sources */,
 				04460C612055A00100BB7B63 /* ReplayViewController.swift in Sources */,
+				0419F398219467D80091449C /* SelectorsForConstants.swift in Sources */,
 				0419F396219462A10091449C /* Helpers.swift in Sources */,
 				04C1B1F9202F3B11003C238B /* GameViewController.swift in Sources */,
 				0491C57F2107B51E00F7E468 /* ShopViewController.swift in Sources */,

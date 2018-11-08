@@ -110,23 +110,6 @@ class GameViewController: UIViewController {
         }
     }
     
-    
-    //возвращает угол в зависимости от направления
-    func GetDegree (dir: Direction) -> CGFloat {
-        switch dir {
-        case .ToDown:
-            return 0.0
-        case .ToLeft:
-            return (90.0 * .pi) / 180.0
-        case .ToRight:
-            return (270.0 * .pi) / 180.0
-        case .ToUp:
-            return (180.0 * .pi) / 180.0
-        default:
-            return 0.0
-        }
-    }
-    
     //динамически добавляет стрелки вью
     func AddArrows () {
         let pos_y = RoundImage.center.y
@@ -187,24 +170,7 @@ class GameViewController: UIViewController {
     
     func UpdateSpeedOfTheGame() {
         if let game = Game{
-            if game.Score >= 0 {
-                SpeedOfTheGame = 0.15
-            }
-            if game.Score >= 10 {
-                SpeedOfTheGame = 0.14
-            }
-            if game.Score >= 20 {
-                SpeedOfTheGame = 0.13
-            }
-            if game.Score >= 40 {
-                SpeedOfTheGame = 0.12
-            }
-            if game.Score >= 80 {
-                SpeedOfTheGame = 0.11
-            }
-            if game.Score >= 120 {
-                SpeedOfTheGame = 0.1
-            }
+            SpeedOfTheGame = getSpeedFromScore(Score: game.Score)
         }
     }
     
@@ -266,24 +232,6 @@ class GameViewController: UIViewController {
             let endingPosition = getDirectionFromTouchPosition(startPoint: startRecognizingPosition, endPoint: location)
             PlayerMadeHisTurn(dir: endingPosition)
         }
-    }
-    
-    func getDirectionFromTouchPosition(startPoint s: CGPoint, endPoint e: CGPoint) -> Direction {
-        if (e.y < s.y && abs(Int(e.x - s.x)) < abs(Int(s.y - e.y))) {
-            return Direction.ToUp
-        }
-        if (e.y > s.y && abs(Int(e.x - s.x)) < abs(Int(s.y - e.y))) {
-            return Direction.ToDown
-        }
-        if (e.x < s.x && abs(Int(e.y - s.y)) < abs(Int(s.x - e.x))) {
-            return Direction.ToLeft
-        }
-        if (e.x > s.x && abs(Int(e.y - s.y)) < abs(Int(s.x - e.x))) {
-            return Direction.ToRight
-        }
-        
-        NSLog("FKDBG someproblems in getDirectionFromTouchPosition")
-        return Direction.ToDown
     }
     
     //переставляем первый View в конец ArrowView чтобы не создавать новый
@@ -352,9 +300,7 @@ class GameViewController: UIViewController {
         var transformForLeftHip = CGAffineTransform.identity
         var transformForRightAss = CGAffineTransform.identity
         var transformForRightHip = CGAffineTransform.identity
-        var transformForLeftLeg = CGAffineTransform.identity
-        var transformForRightLeg = CGAffineTransform.identity
-        
+
         let MAX_X_TRANS_SHIFT = CGFloat(40.0)
         let MAX_DELTA_Y = CGFloat(150.0)
         let MAX_DELTA_X = CGFloat(50.0)
@@ -447,6 +393,12 @@ class GameViewController: UIViewController {
         }, completion: nil)
     }
     
+    //обновляем значения всех видимых элеменетов
+    func UpdateAllVisibleInfo (){
+        UpdateArrowViews()
+        UpdateLabels()
+    }
+    
     //обновляем значения в текстовых элементах
     func UpdateLabels () {
         if let game = Game {
@@ -454,12 +406,6 @@ class GameViewController: UIViewController {
             ScoreLabel.text = String(game.Score)
             CoinsLabel.text = String(game.coins)
         }
-    }
-    
-    //обновляем значения всех видимых элеменетов
-    func UpdateAllVisibleInfo (){
-        UpdateArrowViews()
-        UpdateLabels()
     }
     
     //игрок сделал ход
@@ -480,22 +426,6 @@ class GameViewController: UIViewController {
         } else {
             NSLog ("FKDBG Troubles with PlayerMadeHisTurn")
         }
-    }
-    
-    @IBAction func testBtnUp(_ sender: Any) {
-        PlayerMadeHisTurn(dir: .ToUp)
-    }
-    
-    @IBAction func testBtnRight(_ sender: Any) {
-        PlayerMadeHisTurn(dir: .ToRight)
-    }
-    
-    @IBAction func testBtnDown(_ sender: Any) {
-        PlayerMadeHisTurn(dir: .ToDown)
-    }
-    
-    @IBAction func testBtnLeft(_ sender: Any) {
-        PlayerMadeHisTurn(dir: .ToLeft)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
