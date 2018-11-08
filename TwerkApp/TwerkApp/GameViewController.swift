@@ -22,6 +22,7 @@ class GameViewController: UIViewController {
     var ifRecognizing = false
     var startRecognizingPosition = CGPoint(x: 0, y: 0)
     
+    @IBOutlet weak var PlayerView1: UIView!
     @IBOutlet var PanGestureRecognizerOnAss: UIPanGestureRecognizer!
     @IBOutlet weak var AssView: UIView!
     @IBOutlet weak var AssRight: UIImageView!
@@ -82,7 +83,7 @@ class GameViewController: UIViewController {
                 game.RandomiseAll()
             }
         }
-        DefaultAssPosition = AssView.center
+        DefaultAssPosition = sumCGPoint(left: AssView.center, right: PlayerView1.frame.origin)
         
         DistanceBetweenArrows = CGFloat (self.view.bounds.width/CGFloat(NUM_OF_ARROWS + 1))
         RoundImage.alpha = 0.0
@@ -163,7 +164,7 @@ class GameViewController: UIViewController {
                     if let game = self.Game {
                         game.EndGame()
                     } else {
-                        NSLog ("FKDBG Trouble with game in AniamateArrows")
+                        NSLog ("FKDBG Trouble with game in AnimateArrows")
                     }
                 }
                 
@@ -217,7 +218,7 @@ class GameViewController: UIViewController {
     
     //обновляет вьюшки стрелок в соответствии с логикой
     func UpdateArrowViews () {
-        if var game = Game {
+        if let game = Game {
             var i = 0
             for curArrowModel in game.Arrows {
                 switch curArrowModel.State {
@@ -252,19 +253,12 @@ class GameViewController: UIViewController {
         let newX = DefaultAssPosition.x - (startRecognizingPosition.x - location.x)*MULTIPLICATOR
         let newY = DefaultAssPosition.y - (startRecognizingPosition.y - location.y)*MULTIPLICATOR
         
-        AssView.center = CGPoint(x: newX, y: newY)
+        AssView.center = subCGPoint(left: CGPoint(x: newX, y: newY), right: PlayerView1.frame.origin)
+        
         var cDelta = CGPoint(x: (startRecognizingPosition.x - location.x)*MULTIPLICATOR,
                             y: (startRecognizingPosition.y - location.y)*MULTIPLICATOR)
         UpdateAssViewPosition(delta: cDelta)
         NSLog("FKDBG cDelta \(cDelta))")
-        /* if let view = recognizer.view {
-            let newX = DefaultAssPosition.x - (DefaultAssPosition.x - location.x)*MULTIPLICATOR
-            let newY = DefaultAssPosition.y - (DefaultAssPosition.y - location.y)*MULTIPLICATOR
-            
-            view.center = CGPoint(x: newX, y: newY)
-        }
-        recognizer.setTranslation(CGPoint.zero, in: self.view)*/
-        
         
         if(recognizer.state == .ended) {
             ifRecognizing = false
@@ -386,11 +380,9 @@ class GameViewController: UIViewController {
         transformForLeftHip = transformForLeftHip.rotated(by: MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
         
         transformForLeftHip = transformForLeftHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3 - curDelta.y * 0.13, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y / 2))
-        // y:
         transformForRightHip = transformForRightHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3 - curDelta.y * 0.13, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y / 2))
-        // y:
         
-        var scale = 1 + curDelta.x/MAX_DELTA_X/3
+        let scale = 1 + curDelta.x/MAX_DELTA_X/3
         
         transformForLeftHip = transformForLeftHip.scaledBy(x: scale, y: 1)
         transformForRightHip = transformForRightHip.scaledBy(x: scale, y: 1)
@@ -398,16 +390,6 @@ class GameViewController: UIViewController {
         
         HipLeft.transform = transformForLeftHip
         HipRight.transform = transformForRightHip
-        
-//        transformForRightLeg = transformForRightLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
-//        transformForLeftLeg = transformForLeftLeg.rotated(by: -1*MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
-//
-//        transformForLeftLeg = transformForLeftLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
-//        transformForRightLeg = transformForRightLeg.translatedBy(x: 0, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y))
-//
-//        FootLeft.transform = transformForLeftLeg
-//        FootRight.transform = transformForRightLeg
-        
     }
     
     func TwerkAnimation (){
@@ -416,6 +398,7 @@ class GameViewController: UIViewController {
             animatorForAss.removeBehavior(snapForAss)
         }
         snapForAss = UISnapBehavior(item: AssView, snapTo: DefaultAssPosition)
+        NSLog("DefaultAssPosition \(String(describing: DefaultAssPosition)) ")
         snapForAss.damping = 0.15
         animatorForAss.addBehavior(snapForAss)
         
