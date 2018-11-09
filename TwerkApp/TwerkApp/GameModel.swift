@@ -122,7 +122,7 @@ class TwerkGame {
             defaults.set(1, forKey: "personNum")
             personNum = 1
         }
-        personNum = 4
+        personNum = 1
     }
     
     func PrepareForGame () {

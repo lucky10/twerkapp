@@ -22,8 +22,15 @@ class GameViewController: UIViewController {
     var ifRecognizing = false
     var startRecognizingPosition = CGPoint(x: 0, y: 0)
     
+    var PlayerView: UIView? = nil
+    
     @IBOutlet weak var PlayerView1: UIView!
-    @IBOutlet var PanGestureRecognizerOnAss: UIPanGestureRecognizer!
+    @IBOutlet weak var PlayerView2: UIView!
+    // todo: add PlayerView3
+    @IBOutlet weak var PlayerView4: UIView!
+    @IBOutlet weak var PlayerView5: UIView!
+    @IBOutlet weak var PlayerView6: UIView!
+    
     @IBOutlet weak var AssView: UIView!
     @IBOutlet weak var AssRight: UIImageView!
     @IBOutlet weak var AssLeft: UIImageView!
@@ -58,17 +65,93 @@ class GameViewController: UIViewController {
     
     func UpdateSkins() {
         if let game = Game {
-            if (game.personNum != SKIN_KIM_NUM){
-                FootLeft.image = UIImage(named: "FootLeft-"+String(game.personNum))
-                FootRight.image = UIImage(named: "FootRight-"+String(game.personNum))
-                AssRight.image = UIImage(named: "AssRight-"+String(game.personNum))
-                AssLeft.image = UIImage(named: "AssLeft-"+String(game.personNum))
-                HipLeft.image = UIImage(named: "HipLeft-"+String(game.personNum))
-                HipRight.image = UIImage(named: "HipRight-"+String(game.personNum))
-                Body.image = UIImage(named: "Body-"+String(game.personNum))
-                Back.image = UIImage(named: "Back-"+String(game.personNum))
+            switch game.personNum {
+            case SKIN_NICKI_NUM:
+                PlayerView = PlayerView1
+                SetSkin(number: SKIN_NICKI_NUM)
+            case 2:
+                PlayerView = PlayerView2
+                SetSkin(number: 2)
+            case 4:
+                PlayerView = PlayerView4
+                SetSkin(number: 4)
+            case 5:
+                PlayerView = PlayerView5
+                SetSkin(number: 5)
+            case SKIN_TRUMP_NUM:
+                PlayerView = PlayerView6
+                SetSkin(number: SKIN_TRUMP_NUM)
+            default:
+                NSLog("Something wrong in UpdateSkins()")
+                PlayerView = PlayerView1
+                SetSkin(number: SKIN_NICKI_NUM)
             }
         }
+    }
+    
+    func SetSkin(number: Int) {
+        reassignUIImageViews(number: number)
+        
+        PlayerView1.alpha = number == 1 ? 1 : 0
+        PlayerView2.alpha = number == 2 ? 1 : 0
+        PlayerView4.alpha = number == 4 ? 1 : 0
+        PlayerView5.alpha = number == 5 ? 1 : 0
+        PlayerView6.alpha = number == 6 ? 1 : 0
+        
+        guard let playerView = PlayerView else {
+            return
+        }
+        
+        DefaultAssPosition = sumCGPoint(left: AssView.center, right: playerView.frame.origin)
+    }
+    
+    func reassignUIImageViews(number: Int) {
+        guard let playerView = PlayerView else {
+            NSLog("SOMETHING GO WRONG IN reassignUIImageViews")
+            return
+        }
+        
+        for child in playerView.subviews {
+            if let curImage = child as? UIImageView {
+                switch curImage.tag {
+                case 10 * number + 1:
+                    FootLeft = curImage
+                case 10 * number + 2:
+                    FootRight = curImage
+                case 10 * number + 5:
+                    HipLeft = curImage
+                case 10 * number + 6:
+                    HipRight = curImage
+                case 10 * number + 7:
+                    Body = curImage
+                case 10 * number + 8:
+                    Back = curImage
+                default:
+                    NSLog("SOMETHING GO WRONG IN reassignUIImageViews")
+                }
+            }
+            
+            if let curAssView = child as? UIView {
+                AssView = curAssView
+                if curAssView.tag == 10 * number + 9 {
+                    for assChild in curAssView.subviews {
+                        if let curAssImage = assChild as? UIImageView {
+                            switch curAssImage.tag {
+                            case 10 * number + 3:
+                                AssLeft = curAssImage
+                            case 10 * number + 4:
+                                AssRight = curAssImage
+                            default:
+                                NSLog("SOMETHING GO WRONG IN reassignUIImageViews")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePand))
+        playerView.addGestureRecognizer(pan)
     }
     
     override func viewDidLoad() {
@@ -83,7 +166,6 @@ class GameViewController: UIViewController {
                 game.RandomiseAll()
             }
         }
-        DefaultAssPosition = sumCGPoint(left: AssView.center, right: PlayerView1.frame.origin)
         
         DistanceBetweenArrows = CGFloat (self.view.bounds.width/CGFloat(NUM_OF_ARROWS + 1))
         RoundImage.alpha = 0.0
@@ -92,6 +174,11 @@ class GameViewController: UIViewController {
         ScoreLabel.alpha = 0.0
         
         prepareForGame()
+        
+        guard let playerView = PlayerView else {
+            NSLog("NO PlayerView in viewDidLoad")
+            abort()
+        }
         
         animatorForAss = UIDynamicAnimator(referenceView: self.view)
         
@@ -207,8 +294,8 @@ class GameViewController: UIViewController {
     }
 
     //обработка жеста над жопой
-    @IBAction func handlePand (recognizer: UIPanGestureRecognizer){
-        let MULTIPLICATOR = CGFloat(0.2)  
+    @objc func handlePand (recognizer: UIPanGestureRecognizer){
+        let MULTIPLICATOR = CGFloat(0.1)
         let location = recognizer.location(in: self.view)
         
         if !ifRecognizing {
@@ -219,19 +306,37 @@ class GameViewController: UIViewController {
         let newX = DefaultAssPosition.x - (startRecognizingPosition.x - location.x)*MULTIPLICATOR
         let newY = DefaultAssPosition.y - (startRecognizingPosition.y - location.y)*MULTIPLICATOR
         
-        AssView.center = subCGPoint(left: CGPoint(x: newX, y: newY), right: PlayerView1.frame.origin)
+        guard let playerView = PlayerView else {
+            NSLog("no PlayerView in handlePand")
+            abort()
+        }
         
-        var cDelta = CGPoint(x: (startRecognizingPosition.x - location.x)*MULTIPLICATOR,
+        AssView.center = subCGPoint(left: CGPoint(x: newX, y: newY), right: playerView.frame.origin)
+        
+        let cDelta = CGPoint(x: (startRecognizingPosition.x - location.x)*MULTIPLICATOR,
                             y: (startRecognizingPosition.y - location.y)*MULTIPLICATOR)
+        
         UpdateAssViewPosition(delta: cDelta)
         NSLog("FKDBG cDelta \(cDelta))")
         
         if(recognizer.state == .ended) {
             ifRecognizing = false
-            UpdateAssViewPosition(delta: CGPoint.zero)
+            AnimateHipAndBackReturn(from: cDelta)
             let endingPosition = getDirectionFromTouchPosition(startPoint: startRecognizingPosition, endPoint: location)
             PlayerMadeHisTurn(dir: endingPosition)
         }
+    }
+    
+    func AnimateHipAndBackReturn(from: CGPoint) {
+        let delta = 0.07
+        var cur_delay = 0.0
+        UIView.animate(withDuration: delta, delay: cur_delay, options: .curveEaseInOut, animations: {
+            self.UpdateAssViewPosition(delta: CGPoint(x: -0.5 * from.x, y: -0.5 * from.y))
+        }, completion: nil)
+        cur_delay += delta
+        UIView.animate(withDuration: delta, delay: cur_delay, options: .curveEaseInOut, animations: {
+            self.UpdateAssViewPosition(delta: CGPoint.zero)
+        }, completion: nil)
     }
     
     //переставляем первый View в конец ArrowView чтобы не создавать новый
@@ -295,47 +400,20 @@ class GameViewController: UIViewController {
     }
     
     func UpdateAssViewPosition (delta: CGPoint) {
-        var curDelta = delta
-        var transformForLeftAss = CGAffineTransform.identity
-        var transformForLeftHip = CGAffineTransform.identity
-        var transformForRightAss = CGAffineTransform.identity
-        var transformForRightHip = CGAffineTransform.identity
-
-        let MAX_X_TRANS_SHIFT = CGFloat(40.0)
-        let MAX_DELTA_Y = CGFloat(150.0)
-        let MAX_DELTA_X = CGFloat(50.0)
-        let MAX_Y_ROT_SHIFT = CGFloat(M_PI/6);
-        let MAX_Y_TRANS_SHIFT = CGFloat(100.0)
+        let curDelta = normaliseDeltaForUpdatingAssPosition(delta: delta)
         
-        if(curDelta.y < -50.0) {
-            curDelta.y = -50.0
-        }
-        if(curDelta.y > 50.0) {
-            curDelta.y = 50.0
+        guard let game = Game else {
+            NSLog("FKDBG no game in UpdateAssViewPosition")
+            return
         }
         
-        if (curDelta.x < -1*MAX_DELTA_X) {
-            curDelta.x = -1*MAX_DELTA_X
-        }
-        if (curDelta.x > MAX_DELTA_X) {
-            curDelta.x = MAX_DELTA_X
-        }
-        
-        
-        transformForRightHip = transformForRightHip.rotated(by: MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
-        transformForLeftHip = transformForLeftHip.rotated(by: MAX_Y_ROT_SHIFT*(curDelta.y / MAX_DELTA_Y))
-        
-        transformForLeftHip = transformForLeftHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3 - curDelta.y * 0.13, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y / 2))
-        transformForRightHip = transformForRightHip.translatedBy(x: -1*curDelta.x/MAX_DELTA_X*MAX_X_TRANS_SHIFT/3 - curDelta.y * 0.13, y: -1*MAX_Y_TRANS_SHIFT*(curDelta.y / MAX_DELTA_Y / 2))
-        
-        let scale = 1 + curDelta.x/MAX_DELTA_X/3
-        
-        transformForLeftHip = transformForLeftHip.scaledBy(x: scale, y: 1)
-        transformForRightHip = transformForRightHip.scaledBy(x: scale, y: 1)
-        
-        
+        let transformForLeftHip = createTransformForLeftHip(delta: curDelta, personNum: game.personNum)
+        let transformForRightHip = createTransformForRightHip(delta: curDelta, personNum: game.personNum)
+        let transformForBack = createTransformForBack(delta: curDelta, personNum: game.personNum)
+    
         HipLeft.transform = transformForLeftHip
         HipRight.transform = transformForRightHip
+        Back.transform = transformForBack
     }
     
     func TwerkAnimation (){

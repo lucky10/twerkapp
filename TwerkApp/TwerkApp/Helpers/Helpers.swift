@@ -50,3 +50,7 @@ func GetDegree (dir: Direction) -> CGFloat {
         return 0.0
     }
 }
+
+func myScale(minRes: CGFloat, maxRes: CGFloat, value: CGFloat, minValue: CGFloat, maxValue: CGFloat) -> CGFloat {
+    return minRes + (value - minValue)/(maxValue - minValue)*(maxRes - minRes)
+}
