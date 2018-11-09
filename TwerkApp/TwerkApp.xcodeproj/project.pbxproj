@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0419F396219462A10091449C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F395219462A10091449C /* Helpers.swift */; };
+		0419F398219467D80091449C /* SelectorsForConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F397219467D80091449C /* SelectorsForConstants.swift */; };
+		0419F39A219472A90091449C /* GameAnimationHelplers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F399219472A90091449C /* GameAnimationHelplers.swift */; };
+		042632F521949ADB00ECF026 /* Back.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042632F421949ADB00ECF026 /* Back.swift */; };
+		042632F721949B3100ECF026 /* RightHip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042632F621949B3100ECF026 /* RightHip.swift */; };
+		042632F921949B6800ECF026 /* LeftHip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042632F821949B6800ECF026 /* LeftHip.swift */; };
 		04460C612055A00100BB7B63 /* ReplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C602055A00100BB7B63 /* ReplayViewController.swift */; };
 		04460C632055A79800BB7B63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C622055A79800BB7B63 /* SettingsView.swift */; };
 		04460C652055AA4800BB7B63 /* GameEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04460C642055AA4800BB7B63 /* GameEndViewController.swift */; };
+		0491C57F2107B51E00F7E468 /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0491C57E2107B51E00F7E468 /* ShopViewController.swift */; };
 		04C1B1F9202F3B11003C238B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1B1F8202F3B0E003C238B /* GameViewController.swift */; };
 		04F9A2B52018473100E20683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F9A2B42018473100E20683 /* AppDelegate.swift */; };
 		04F9A2BA2018473100E20683 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F9A2B82018473100E20683 /* Main.storyboard */; };
@@ -20,10 +27,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0419F395219462A10091449C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		0419F397219467D80091449C /* SelectorsForConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorsForConstants.swift; sourceTree = "<group>"; };
+		0419F399219472A90091449C /* GameAnimationHelplers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnimationHelplers.swift; sourceTree = "<group>"; };
+		042632F421949ADB00ECF026 /* Back.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Back.swift; sourceTree = "<group>"; };
+		042632F621949B3100ECF026 /* RightHip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightHip.swift; sourceTree = "<group>"; };
+		042632F821949B6800ECF026 /* LeftHip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftHip.swift; sourceTree = "<group>"; };
 		0440E007204021EB00D6E9EA /* Gotham Cyrillic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Gotham Cyrillic"; path = "../APP/Gotham Cyrillic"; sourceTree = "<group>"; };
 		04460C602055A00100BB7B63 /* ReplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplayViewController.swift; sourceTree = "<group>"; };
 		04460C622055A79800BB7B63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		04460C642055AA4800BB7B63 /* GameEndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEndViewController.swift; sourceTree = "<group>"; };
+		0491C57E2107B51E00F7E468 /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
 		04C1B1F8202F3B0E003C238B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		04F9A2B12018473100E20683 /* TwerkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwerkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04F9A2B42018473100E20683 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +63,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0419F39B2194740E0091449C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				042632F0219498EE00ECF026 /* multiplicators */,
+				0419F395219462A10091449C /* Helpers.swift */,
+				0419F399219472A90091449C /* GameAnimationHelplers.swift */,
+				0419F397219467D80091449C /* SelectorsForConstants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0419F39C219474330091449C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				04460C622055A79800BB7B63 /* SettingsView.swift */,
+				0491C57E2107B51E00F7E468 /* ShopViewController.swift */,
+				04C1B1F8202F3B0E003C238B /* GameViewController.swift */,
+				04460C642055AA4800BB7B63 /* GameEndViewController.swift */,
+				04460C602055A00100BB7B63 /* ReplayViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		042632F0219498EE00ECF026 /* multiplicators */ = {
+			isa = PBXGroup;
+			children = (
+				042632F421949ADB00ECF026 /* Back.swift */,
+				042632F621949B3100ECF026 /* RightHip.swift */,
+				042632F821949B6800ECF026 /* LeftHip.swift */,
+			);
+			path = multiplicators;
+			sourceTree = "<group>";
+		};
 		04F9A2A82018473100E20683 = {
 			isa = PBXGroup;
 			children = (
@@ -72,11 +119,9 @@
 			isa = PBXGroup;
 			children = (
 				04F9A2B42018473100E20683 /* AppDelegate.swift */,
-				04460C622055A79800BB7B63 /* SettingsView.swift */,
 				04F9A2E5201C40BE00E20683 /* GameModel.swift */,
-				04C1B1F8202F3B0E003C238B /* GameViewController.swift */,
-				04460C642055AA4800BB7B63 /* GameEndViewController.swift */,
-				04460C602055A00100BB7B63 /* ReplayViewController.swift */,
+				0419F39C219474330091449C /* ViewControllers */,
+				0419F39B2194740E0091449C /* Helpers */,
 				04F9A2B82018473100E20683 /* Main.storyboard */,
 				04F9A2BB2018473100E20683 /* Assets.xcassets */,
 				04F9A2BD2018473100E20683 /* LaunchScreen.storyboard */,
@@ -229,10 +274,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				04460C652055AA4800BB7B63 /* GameEndViewController.swift in Sources */,
+				042632F721949B3100ECF026 /* RightHip.swift in Sources */,
 				04460C632055A79800BB7B63 /* SettingsView.swift in Sources */,
 				04460C612055A00100BB7B63 /* ReplayViewController.swift in Sources */,
+				0419F398219467D80091449C /* SelectorsForConstants.swift in Sources */,
+				0419F396219462A10091449C /* Helpers.swift in Sources */,
 				04C1B1F9202F3B11003C238B /* GameViewController.swift in Sources */,
+				0491C57F2107B51E00F7E468 /* ShopViewController.swift in Sources */,
+				0419F39A219472A90091449C /* GameAnimationHelplers.swift in Sources */,
 				04F9A2B52018473100E20683 /* AppDelegate.swift in Sources */,
+				042632F921949B6800ECF026 /* LeftHip.swift in Sources */,
+				042632F521949ADB00ECF026 /* Back.swift in Sources */,
 				04F9A2E6201C40BE00E20683 /* GameModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
