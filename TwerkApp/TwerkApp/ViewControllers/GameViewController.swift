@@ -65,9 +65,15 @@ class GameViewController: UIViewController {
         animateTopArrow(correct: true, toPosition: .Begin)
         animateMiddleArrow(correct: true, toPosition: .Begin)
         animateBottomArrow(correct: true, toPosition: .Begin)
+        
+        TopArrow.image = UIImage(named: "Arrow")
+        MiddleArrow.image = UIImage(named: "Arrow")
+        BottomArrow.image = UIImage(named: "Arrow")
+        
         UpdateLabels()
         UpdateSpeedOfTheGame()
         UpdateSkins()
+        UpdateArrowDirections()
     }
     
     func UpdateSkins() {
@@ -110,6 +116,16 @@ class GameViewController: UIViewController {
         }
         
         DefaultAssPosition = sumCGPoint(left: AssView.center, right: playerView.frame.origin)
+    }
+    
+    func UpdateArrowDirections() {
+        guard let game = Game else {
+            return
+        }
+        let degree = GetDegree(dir: game.curArrow.Direct)
+        TopArrow.transform = CGAffineTransform(rotationAngle: degree)
+        MiddleArrow.transform = CGAffineTransform(rotationAngle: degree)
+        BottomArrow.transform = CGAffineTransform(rotationAngle: degree)
     }
     
     func reassignUIImageViews(number: Int) {
@@ -158,7 +174,7 @@ class GameViewController: UIViewController {
         }
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePand))
-        playerView.addGestureRecognizer(pan)
+        self.view.addGestureRecognizer(pan)
     }
     
     override func viewDidLoad() {
@@ -384,6 +400,7 @@ class GameViewController: UIViewController {
     //обновляем значения всех видимых элеменетов
     func updateAllVisibleInfo (){
         UpdateLabels()
+        UpdateArrowDirections()
     }
     
     //обновляем значения в текстовых элементах
@@ -397,17 +414,20 @@ class GameViewController: UIViewController {
     
     //игрок сделал ход
     func PlayerMadeHisTurn (dir: Direction) {
-        NSLog("FKDBG Игрок дернул жопу в сторону: \(dir)");
+        NSLog("GAME LOGIC Игрок дернул жопу в сторону: \(dir)");
         
         guard let game = Game else {
-            NSLog ("FKDBG Troubles with PlayerMadeHisTurn")
+            NSLog ("ERROR Troubles with PlayerMadeHisTurn")
             return
         }
+        
+        NSLog("GAME LOGIC game.curArrow.Direct \(game.curArrow.Direct)")
         
         let correct = dir == game.curArrow.Direct
         
         if game.curArrow.isDouble {
             if waitingForSecondArrow {
+                waitingForSecondArrow = false
                 animateBottomArrow(correct: correct, toPosition: .End)
                 game.PlayerEndedTurn(isCorrect: correct)
             } else {
@@ -430,9 +450,7 @@ class GameViewController: UIViewController {
             return
         }
         updateAllVisibleInfo()
-        if waitingForSecondArrow {
-            waitingForSecondArrow = false
-        } else {
+        if !waitingForSecondArrow {
             game.PlayerEndedTurn(isCorrect: isCorrect)
             if (isCorrect) {
                 createNextTurn()
@@ -443,10 +461,10 @@ class GameViewController: UIViewController {
     }
     
     func createNextTurn () {
+        UpdateArrowDirections()
         guard let game = Game else {
             return
         }
-        updateArrowView()
         if game.curArrow.isDouble {
             animateTopArrow(correct: true, toPosition: .Middle)
             animateBottomArrow(correct: true, toPosition: .Middle)
@@ -459,13 +477,13 @@ class GameViewController: UIViewController {
         guard let game = Game else {
             return
         }
-    }
-    
-    func updateArrowView () {
-        guard let game = Game else {
-            return
+        
+        game.EndGame()
+        if game.ifShowReplay {
+            showReplayView()
+        } else {
+            showGameEndView()
         }
-        // TODO: rotate arrow and change image
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -493,7 +511,7 @@ class GameViewController: UIViewController {
         }
     }
     
-    fileprivate func animateTopArrow(correct: Bool, toPosition: ArrowPosition, delay: Double = 0.00001) {
+    fileprivate func animateTopArrow(correct: Bool, toPosition: ArrowPosition, delay: Double = 0.0) {
         switch toPosition {
         case .Begin:
             TopArrow.center.x = 123
@@ -506,7 +524,7 @@ class GameViewController: UIViewController {
         case .End:
             animateTwerk()
             if !correct {
-                TopArrow.image = UIImage(named: "RedArrow")
+                TopArrow.image = UIImage(named: "ArrowRed")
             }
             UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
                 self.TopArrow.center.x = 3
@@ -531,7 +549,7 @@ class GameViewController: UIViewController {
         case .End:
             animateTwerk()
             if !correct {
-                MiddleArrow.image = UIImage(named: "RedArrow")
+                MiddleArrow.image = UIImage(named: "ArrowRed")
             }
             UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
                 self.MiddleArrow.center.x = 3
@@ -556,7 +574,7 @@ class GameViewController: UIViewController {
         case .End:
             animateTwerk()
             if !correct {
-                BottomArrow.image = UIImage(named: "RedArrow")
+                BottomArrow.image = UIImage(named: "ArrowRed")
             }
             UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
                 self.BottomArrow.center.x = 3

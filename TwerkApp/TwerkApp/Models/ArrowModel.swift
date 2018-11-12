@@ -71,7 +71,6 @@ class Arrow {
         default:
             Direct = .ToDown
         }
-        Direct = .ToUp
     }
     
     private func randomiseCoin() {
@@ -92,6 +91,5 @@ class Arrow {
         default:
             isDouble = false
         }
-        isDouble = true
     }
 }
