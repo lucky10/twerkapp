@@ -39,18 +39,6 @@
                                 <color key="textColor" red="0.3215128183" green="0.1098018363" blue="0.31768566370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="round" translatesAutoresizingMaskIntoConstraints="NO" id="7Wz-qG-L9t">
-                                <rect key="frame" x="24" y="75" width="71" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="round-red" translatesAutoresizingMaskIntoConstraints="NO" id="dIA-EV-N2T">
-                                <rect key="frame" x="24" y="75" width="71" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="round-green" translatesAutoresizingMaskIntoConstraints="NO" id="7Xs-Ml-Iym">
-                                <rect key="frame" x="24" y="75" width="71" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YmH-Sv-Z1j" userLabel="Button_no_ads">
                                 <rect key="frame" x="87" y="602" width="39" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -179,14 +167,14 @@
                                         <rect key="frame" x="-7" y="228" width="204" height="130"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" tag="24" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="AssRight-2" translatesAutoresizingMaskIntoConstraints="NO" id="cZ8-lD-2Mr">
-                                                <rect key="frame" x="85" y="16" width="107" height="114"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                            </imageView>
                                             <imageView tag="23" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="AssLeft-2" translatesAutoresizingMaskIntoConstraints="NO" id="hIw-1q-mHu">
                                                 <rect key="frame" x="8" y="16" width="104" height="114"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                                 <gestureRecognizers/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" tag="24" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="AssRight-2" translatesAutoresizingMaskIntoConstraints="NO" id="cZ8-lD-2Mr">
+                                                <rect key="frame" x="85" y="16" width="107" height="114"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                             </imageView>
                                         </subviews>
                                     </view>
@@ -336,6 +324,18 @@
                                     <action selector="CursorClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6G4-1c-LVe"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="K55-ua-SN1">
+                                <rect key="frame" x="30" y="125" width="75" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="KWY-4v-ozk">
+                                <rect key="frame" x="30" y="165" width="75" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="W9v-Oz-4Uy">
+                                <rect key="frame" x="30" y="90" width="75" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
@@ -358,24 +358,25 @@
                         <outlet property="Back" destination="Drm-yi-3yZ" id="7Ma-XO-r3J"/>
                         <outlet property="BestScoreLabel" destination="gec-Pf-r2w" id="OCr-z8-rLs"/>
                         <outlet property="Body" destination="zG2-zO-w6W" id="k2q-vy-Y5E"/>
+                        <outlet property="BottomArrow" destination="KWY-4v-ozk" id="stB-ea-6S3"/>
                         <outlet property="CoinsLabel" destination="JV1-4m-tQS" id="4A9-ou-LlF"/>
                         <outlet property="CursorButton" destination="nY3-vw-Nck" id="21Y-V6-TtI"/>
                         <outlet property="FootLeft" destination="YW8-TB-amw" id="q2A-U6-Nw8"/>
                         <outlet property="FootRight" destination="8X6-wg-Eto" id="1IE-rd-ZOv"/>
                         <outlet property="HipLeft" destination="aTK-SR-ggF" id="6Cn-vo-vet"/>
                         <outlet property="HipRight" destination="6yS-a8-NMt" id="jIy-yi-iQL"/>
+                        <outlet property="MiddleArrow" destination="K55-ua-SN1" id="iG3-ab-1wo"/>
                         <outlet property="NoAdsButton" destination="YmH-Sv-Z1j" id="oPK-wq-uWb"/>
                         <outlet property="PlayerView1" destination="Ong-b5-MeK" id="tNQ-FL-iLE"/>
                         <outlet property="PlayerView2" destination="xpo-kv-Ajr" id="5dD-ih-5b4"/>
                         <outlet property="PlayerView4" destination="9Do-3N-RGQ" id="cyV-3V-Sno"/>
                         <outlet property="PlayerView5" destination="4br-gb-30E" id="znk-0S-rn4"/>
                         <outlet property="PlayerView6" destination="1on-14-WAs" id="Wga-R4-bIc"/>
-                        <outlet property="RoundGreenImage" destination="7Xs-Ml-Iym" id="RJG-cz-6ou"/>
-                        <outlet property="RoundImage" destination="7Wz-qG-L9t" id="Qqb-xr-Mej"/>
-                        <outlet property="RoundRedImage" destination="dIA-EV-N2T" id="wiF-Dp-Dor"/>
                         <outlet property="ScoreLabel" destination="eLS-hX-6jj" id="LdO-Ro-Ux5"/>
                         <outlet property="SettingsButton" destination="qq8-l5-jOw" id="Q6b-Tm-7Nw"/>
                         <outlet property="ShopButton" destination="jk0-dY-VKX" id="cAH-xo-sw1"/>
+                        <outlet property="TopArrow" destination="W9v-Oz-4Uy" id="GIw-0a-0vN"/>
+                        <segue destination="iY9-8O-Ddl" kind="presentation" identifier="fromGameToReplay" animates="NO" id="Q55-VS-WZX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -909,6 +910,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Arrow" width="92" height="92"/>
         <image name="AssLeft-1" width="104.5" height="111"/>
         <image name="AssLeft-2" width="102" height="110.5"/>
         <image name="AssLeft-4" width="104" height="111"/>
@@ -966,8 +968,6 @@
         <image name="no thanks" width="189" height="23"/>
         <image name="plan-7" width="750" height="1334"/>
         <image name="round" width="142" height="142"/>
-        <image name="round-green" width="140" height="140"/>
-        <image name="round-red" width="140" height="140"/>
         <image name="settings" width="77" height="76"/>
         <image name="share-up" width="300" height="100"/>
         <image name="shop" width="195" height="195"/>

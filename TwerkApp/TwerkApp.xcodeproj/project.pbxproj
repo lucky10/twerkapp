@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040DEFE82195859000C04BA2 /* ArrowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040DEFE72195859000C04BA2 /* ArrowModel.swift */; };
 		0419F396219462A10091449C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F395219462A10091449C /* Helpers.swift */; };
 		0419F398219467D80091449C /* SelectorsForConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F397219467D80091449C /* SelectorsForConstants.swift */; };
 		0419F39A219472A90091449C /* GameAnimationHelplers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0419F399219472A90091449C /* GameAnimationHelplers.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		040DEFE72195859000C04BA2 /* ArrowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowModel.swift; sourceTree = "<group>"; };
 		0419F395219462A10091449C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		0419F397219467D80091449C /* SelectorsForConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorsForConstants.swift; sourceTree = "<group>"; };
 		0419F399219472A90091449C /* GameAnimationHelplers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnimationHelplers.swift; sourceTree = "<group>"; };
@@ -63,6 +65,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040DEFE62195854B00C04BA2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				04F9A2E5201C40BE00E20683 /* GameModel.swift */,
+				040DEFE72195859000C04BA2 /* ArrowModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		0419F39B2194740E0091449C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,7 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				04F9A2B42018473100E20683 /* AppDelegate.swift */,
-				04F9A2E5201C40BE00E20683 /* GameModel.swift */,
+				040DEFE62195854B00C04BA2 /* Models */,
 				0419F39C219474330091449C /* ViewControllers */,
 				0419F39B2194740E0091449C /* Helpers */,
 				04F9A2B82018473100E20683 /* Main.storyboard */,
@@ -280,6 +291,7 @@
 				0419F398219467D80091449C /* SelectorsForConstants.swift in Sources */,
 				0419F396219462A10091449C /* Helpers.swift in Sources */,
 				04C1B1F9202F3B11003C238B /* GameViewController.swift in Sources */,
+				040DEFE82195859000C04BA2 /* ArrowModel.swift in Sources */,
 				0491C57F2107B51E00F7E468 /* ShopViewController.swift in Sources */,
 				0419F39A219472A90091449C /* GameAnimationHelplers.swift in Sources */,
 				04F9A2B52018473100E20683 /* AppDelegate.swift in Sources */,

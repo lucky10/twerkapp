@@ -22,6 +22,8 @@ class GameViewController: UIViewController {
     var ifRecognizing = false
     var startRecognizingPosition = CGPoint(x: 0, y: 0)
     
+    var waitingForSecondArrow = false
+    
     var PlayerView: UIView? = nil
     
     @IBOutlet weak var PlayerView1: UIView!
@@ -38,16 +40,18 @@ class GameViewController: UIViewController {
     @IBOutlet weak var Back: UIImageView!
     @IBOutlet weak var FootRight: UIImageView!
     @IBOutlet weak var FootLeft: UIImageView!
+    
     @IBOutlet weak var CoinsLabel: UILabel!
     @IBOutlet weak var ScoreLabel: UILabel!
     @IBOutlet weak var BestScoreLabel: UILabel!
-    @IBOutlet weak var RoundImage: UIImageView!
     @IBOutlet weak var SettingsButton: UIButton!
     @IBOutlet weak var NoAdsButton: UIButton!
     @IBOutlet weak var ShopButton: UIButton!
     @IBOutlet weak var CursorButton: UIButton!
-    @IBOutlet weak var RoundRedImage: UIImageView!
-    @IBOutlet weak var RoundGreenImage: UIImageView!
+    
+    @IBOutlet weak var TopArrow: UIImageView!
+    @IBOutlet weak var MiddleArrow: UIImageView!
+    @IBOutlet weak var BottomArrow: UIImageView!
     
     
     var DefaultAssPosition : CGPoint!
@@ -56,8 +60,11 @@ class GameViewController: UIViewController {
     @IBOutlet weak var HipLeft: UIImageView!
     
     fileprivate func prepareForGame() {
-        AddArrows()
-        UpdateArrowViews()
+        waitingForSecondArrow = false
+        
+        animateTopArrow(correct: true, toPosition: .Begin)
+        animateMiddleArrow(correct: true, toPosition: .Begin)
+        animateBottomArrow(correct: true, toPosition: .Begin)
         UpdateLabels()
         UpdateSpeedOfTheGame()
         UpdateSkins()
@@ -161,16 +168,6 @@ class GameViewController: UIViewController {
             Game!.PrepareForGame()
         }
         
-        if let game = Game {
-            if game.ifShowReplay {
-                game.RandomiseAll()
-            }
-        }
-        
-        DistanceBetweenArrows = CGFloat (self.view.bounds.width/CGFloat(NUM_OF_ARROWS + 1))
-        RoundImage.alpha = 0.0
-        RoundGreenImage.alpha = 0.0
-        RoundRedImage.alpha = 0.0
         ScoreLabel.alpha = 0.0
         
         prepareForGame()
@@ -196,63 +193,9 @@ class GameViewController: UIViewController {
             AnimateGameBegin()
         }
     }
-    
-    //динамически добавляет стрелки вью
-    func AddArrows () {
-        let pos_y = RoundImage.center.y
-        let size = CGFloat (40)
-        for i in 0...NUM_OF_ARROWS {
-            let cur = UIImageView()
-            cur.image = #imageLiteral(resourceName: "DefaultArrow")
-            cur.center.x = DistanceBetweenArrows * CGFloat(i + 1) + self.view.frame.width*1.5
-            cur.center.y = pos_y
-            cur.bounds.size.width = size
-            cur.bounds.size.height = size
-            
-            ArrowsView.append(cur)
-            
-            super.view.addSubview(cur)
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    //сдвиг стрелочек налево на одну, анимация идет до тех пор пока человек играет
-    func AnimateArrows () {
-        UIView.animate(withDuration: SpeedOfTheGame, delay: 0, options: .curveLinear, animations: {
-            for arrow in self.ArrowsView {
-                arrow.center.x -= 10
-            }}, completion: { (finished: Bool) in
-                //проверяем не проебал ли игрок из-за того что не успел
-                guard let curFirst = self.ArrowsView.first else {
-                    NSLog ("FKDBG problem in AnimateArrows")
-                    return
-                }
-                if (curFirst.center.x + curFirst.frame.width/2 < self.RoundImage.center.x - self.RoundImage.frame.width/2) {
-                    if let game = self.Game {
-                        game.EndGame()
-                    } else {
-                        NSLog ("FKDBG Trouble with game in AnimateArrows")
-                    }
-                }
-                
-                if let game = self.Game{
-                    self.UpdateSpeedOfTheGame()
-                    if (game.ifGame) {
-                        self.AnimateArrows()
-                    } else {
-                        if (game.ifShowReplay) {
-                            self.showReplayView()
-                        } else {
-                            self.showGameEndView()
-                        }
-                    }
-                } else {
-                    print("Trouble with game in AnimateArrows")
-                }
-        })
     }
     
     func UpdateSpeedOfTheGame() {
@@ -269,30 +212,6 @@ class GameViewController: UIViewController {
         performSegue(withIdentifier: "fromGameToEndGame", sender: self)
     }
     
-    //обновляет вьюшки стрелок в соответствии с логикой
-    func UpdateArrowViews () {
-        if let game = Game {
-            var i = 0
-            for curArrowModel in game.Arrows {
-                switch curArrowModel.State {
-                case .Empty:
-                    ArrowsView[i].isHidden = true
-                case .Default:
-                    ArrowsView[i].isHidden = false
-                    ArrowsView[i].image = #imageLiteral(resourceName: "DefaultArrow")
-                case .Coin:
-                    ArrowsView[i].isHidden = false
-                    ArrowsView[i].image = #imageLiteral(resourceName: "CoinArrow")
-                default:
-                    ArrowsView[i].isHidden = false
-                    ArrowsView[i].image = #imageLiteral(resourceName: "DefaultArrow")
-                }
-                ArrowsView[i].transform = CGAffineTransform(rotationAngle: GetDegree(dir: game.Arrows[i].Direct))
-                i += 1
-            }
-        }
-    }
-
     //обработка жеста над жопой
     @objc func handlePand (recognizer: UIPanGestureRecognizer){
         let MULTIPLICATOR = CGFloat(0.1)
@@ -337,16 +256,6 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: delta, delay: cur_delay, options: .curveEaseInOut, animations: {
             self.UpdateAssViewPosition(delta: CGPoint.zero)
         }, completion: nil)
-    }
-    
-    //переставляем первый View в конец ArrowView чтобы не создавать новый
-    func MakeFirstArrowViewLast () {
-        guard let curLast = ArrowsView.last else {
-            print ("WTF in MakeFirstArrowViewLast")
-            return
-        }
-        ArrowsView[0].center.x = curLast.center.x + DistanceBetweenArrows
-        ArrowsView.append(ArrowsView.removeFirst())
     }
     
     //определяет в каком направлении игрок отпустил жопу
@@ -416,9 +325,9 @@ class GameViewController: UIViewController {
         Back.transform = transformForBack
     }
     
-    func TwerkAnimation (){
+    func animateTwerk(){
         //анимация
-        if (snapForAss != nil){
+        if snapForAss != nil {
             animatorForAss.removeBehavior(snapForAss)
         }
         snapForAss = UISnapBehavior(item: AssView, snapTo: DefaultAssPosition)
@@ -452,28 +361,28 @@ class GameViewController: UIViewController {
     
     func AnimateGameBegin () {
         CursorButton.isHidden = true
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-            for cur in self.ArrowsView {
-                cur.center.x -= self.view.frame.width*1.2
-            }
-        }, completion: { finished in
-            //в этот момент начинается сама игра 
-            self.AnimateArrows()
-        })
 
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
             self.ScoreLabel.alpha = 1.0
-            self.RoundImage.alpha = 1.0
             self.SettingsButton.center.y += 100
             self.NoAdsButton.center.y += 100
             self.ShopButton.center.y += 200
         }, completion: nil)
+        
+        guard let game = Game else {
+            return
+        }
+        
+        if game.curArrow.isDouble {
+            animateTopArrow(correct: true, toPosition: .Middle)
+            animateBottomArrow(correct: true, toPosition: .Middle)
+        } else {
+            animateMiddleArrow(correct: true, toPosition: .Middle)
+        }
     }
     
     //обновляем значения всех видимых элеменетов
-    func UpdateAllVisibleInfo (){
-        UpdateArrowViews()
+    func updateAllVisibleInfo (){
         UpdateLabels()
     }
     
@@ -487,23 +396,76 @@ class GameViewController: UIViewController {
     }
     
     //игрок сделал ход
-    func PlayerMadeHisTurn (dir : Direction) {
+    func PlayerMadeHisTurn (dir: Direction) {
         NSLog("FKDBG Игрок дернул жопу в сторону: \(dir)");
-        if let game = Game {
-            guard let curFirst = ArrowsView.first else {
-                return
-            }
-            let delta = abs(curFirst.center.x - RoundImage.center.x)/(RoundImage.frame.width/2)
-            let isPlayerMadeRightDisigion = game.PlayerEndedTurn(onPosition: dir, withDelta: Double(delta))
-            
-            animateRound(forWin: isPlayerMadeRightDisigion)
-            MakeFirstArrowViewLast()
-            UpdateAllVisibleInfo()
-            
-            TwerkAnimation()
-        } else {
+        
+        guard let game = Game else {
             NSLog ("FKDBG Troubles with PlayerMadeHisTurn")
+            return
         }
+        
+        let correct = dir == game.curArrow.Direct
+        
+        if game.curArrow.isDouble {
+            if waitingForSecondArrow {
+                animateBottomArrow(correct: correct, toPosition: .End)
+                game.PlayerEndedTurn(isCorrect: correct)
+            } else {
+                if correct {
+                    waitingForSecondArrow = true
+                    animateTopArrow(correct: true, toPosition: .End)
+                } else {
+                    waitingForSecondArrow = false
+                    animateTopArrow(correct: false, toPosition: .End)
+                    animateBottomArrow(correct: true, toPosition: .End, delay: 0.2)
+                }
+            }
+        } else {
+            animateMiddleArrow(correct: correct, toPosition: .End)
+        }
+    }
+    
+    func nextTurn (isCorrect: Bool) {
+        guard let game = Game else {
+            return
+        }
+        updateAllVisibleInfo()
+        if waitingForSecondArrow {
+            waitingForSecondArrow = false
+        } else {
+            game.PlayerEndedTurn(isCorrect: isCorrect)
+            if (isCorrect) {
+                createNextTurn()
+            } else {
+                endGame()
+            }
+        }
+    }
+    
+    func createNextTurn () {
+        guard let game = Game else {
+            return
+        }
+        updateArrowView()
+        if game.curArrow.isDouble {
+            animateTopArrow(correct: true, toPosition: .Middle)
+            animateBottomArrow(correct: true, toPosition: .Middle)
+        } else {
+            animateMiddleArrow(correct: true, toPosition: .Middle)
+        }
+    }
+    
+    func endGame () {
+        guard let game = Game else {
+            return
+        }
+    }
+    
+    func updateArrowView () {
+        guard let game = Game else {
+            return
+        }
+        // TODO: rotate arrow and change image
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -531,22 +493,78 @@ class GameViewController: UIViewController {
         }
     }
     
-    func animateRound(forWin isGreen: Bool) {
-        let duration = 0.1
-        if isGreen {
-            UIView.animate(withDuration: duration, animations: {
-                self.RoundGreenImage.alpha = 1
-            })
-            UIView.animate(withDuration: duration, delay: duration, options: [], animations: {
-                self.RoundGreenImage.alpha = 0
+    fileprivate func animateTopArrow(correct: Bool, toPosition: ArrowPosition, delay: Double = 0.00001) {
+        switch toPosition {
+        case .Begin:
+            TopArrow.center.x = 123
+            TopArrow.alpha = 0
+        case .Middle:
+            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
+                self.TopArrow.center.x = 63
+                self.TopArrow.alpha = 1
             }, completion: nil)
-        } else {
-            UIView.animate(withDuration: duration, animations: {
-                self.RoundRedImage.alpha = 1
+        case .End:
+            animateTwerk()
+            if !correct {
+                TopArrow.image = UIImage(named: "RedArrow")
+            }
+            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
+                self.TopArrow.center.x = 3
+                self.TopArrow.alpha = 0
+            }, completion: { (finished: Bool) in
+                self.animateTopArrow(correct: true, toPosition: .Begin)
+                self.nextTurn(isCorrect: correct)
             })
-            UIView.animate(withDuration: duration, delay: duration, options: [], animations: {
-                self.RoundRedImage.alpha = 0
+        }
+    }
+    
+    fileprivate func animateMiddleArrow(correct: Bool, toPosition: ArrowPosition, delay: Double = 0.0) {
+        switch toPosition {
+        case .Begin:
+            MiddleArrow.center.x = 123
+            MiddleArrow.alpha = 0
+        case .Middle:
+            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
+                self.MiddleArrow.center.x = 63
+                self.MiddleArrow.alpha = 1
             }, completion: nil)
+        case .End:
+            animateTwerk()
+            if !correct {
+                MiddleArrow.image = UIImage(named: "RedArrow")
+            }
+            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
+                self.MiddleArrow.center.x = 3
+                self.MiddleArrow.alpha = 0
+            }, completion: { (finished: Bool) in
+                self.animateMiddleArrow(correct: true, toPosition: .Begin)
+                self.nextTurn(isCorrect: correct)
+            })
+        }
+    }
+    
+    fileprivate func animateBottomArrow(correct: Bool, toPosition: ArrowPosition, delay: Double = 0.0) {
+        switch toPosition {
+        case .Begin:
+            BottomArrow.center.x = 123
+            BottomArrow.alpha = 0
+        case .Middle:
+            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
+                self.BottomArrow.center.x = 63
+                self.BottomArrow.alpha = 1
+            }, completion: nil)
+        case .End:
+            animateTwerk()
+            if !correct {
+                BottomArrow.image = UIImage(named: "RedArrow")
+            }
+            UIView.animate(withDuration: 0.2, delay: delay, options: .curveEaseOut, animations: {
+                self.BottomArrow.center.x = 3
+                self.BottomArrow.alpha = 0
+            }, completion: { (finished: Bool) in
+                self.animateBottomArrow(correct: true, toPosition: .Begin)
+                self.nextTurn(isCorrect: correct)
+            })
         }
     }
 }
