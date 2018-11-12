@@ -38,13 +38,13 @@ func getDirectionFromTouchPosition(startPoint s: CGPoint, endPoint e: CGPoint) -
 //возвращает угол в зависимости от направления
 func GetDegree (dir: Direction) -> CGFloat {
     switch dir {
-    case .ToDown:
-        return 0.0
-    case .ToLeft:
-        return (90.0 * .pi) / 180.0
-    case .ToRight:
-        return (270.0 * .pi) / 180.0
     case .ToUp:
+        return 0.0
+    case .ToRight:
+        return (90.0 * .pi) / 180.0
+    case .ToLeft:
+        return (270.0 * .pi) / 180.0
+    case .ToDown:
         return (180.0 * .pi) / 180.0
     default:
         return 0.0
